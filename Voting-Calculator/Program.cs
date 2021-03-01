@@ -16,7 +16,11 @@ namespace Voting_Calculator
             var inputDataFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Assessment1InputData.txt");
             var votesFile = File.ReadAllText(inputDataFilePath);
             Console.WriteLine(votesFile);
+
+            Console.WriteLine($"{}\n{}\n{}\n{}");
             Console.ReadKey();
         }
+
+
     }
 }
