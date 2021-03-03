@@ -17,10 +17,7 @@ namespace Voting_Calculator
             var votesFile = File.ReadAllText(inputDataFilePath);
             Console.WriteLine(votesFile);
 
-            Console.WriteLine($"{}\n{}\n{}\n{}");
             Console.ReadKey();
         }
-
-
     }
 }
