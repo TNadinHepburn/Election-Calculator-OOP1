@@ -8,23 +8,19 @@ namespace Voting_Calculator
 {
     class ElectionData
     {
-        private string _Location;
-        private int _TotalVotes;
-        private List<Party> _Parties;
-
-
-        public string Location => _Location;
-        public int TotalVotes => _TotalVotes;
-        public List<Party> Parties => _Parties;
+        public string Location { get; }
+        public int TotalVotes { get; }
+        public List<Party> Parties { get; }
+        public int TotalSeats { get; } = 5;
 
         public ElectionData(string Location, int TotalVotes, string[] Parties)
         {
-            _Location = Location;
-            _TotalVotes = TotalVotes;
-            _Parties = makePartyClasses(Parties);
+            this.Location = Location;
+            this.TotalVotes = TotalVotes;
+            this.Parties = MakePartyClasses(Parties);
         }
         
-        public List<Party> makePartyClasses(string[] arrayParties)
+        public List<Party> MakePartyClasses(string[] arrayParties)
         {
             List<Party> listParties = new List<Party>();
             //Brexit Party,452321,BP1,BP2,BP3,BP4,BP5;
@@ -41,7 +37,50 @@ namespace Voting_Calculator
             return listParties;
         }
 
+        public void BiggestVotes()
+        {
+            int seatWinnerIndex = 0;
+            Party seatWinner = new Party();
+            int counter = 0;
+            foreach (Party party in Parties)
+            {
+                if ((party.Votes/(party.Seats+1)) > (seatWinner.Votes/(seatWinner.Seats+1)))
+                {
+                    seatWinner = party;
+                    seatWinnerIndex = counter;
+                }
+                counter++;
+            }
+            this.Parties[seatWinnerIndex].Seats++;
+        }
 
+        public void SeatsAwarded()
+        {
+            for (int i = 0; i < TotalSeats; i++)
+            {
+                this.BiggestVotes();
+            }
+        }
+
+        public string Result()
+        {
+            string finalResult = $"{this.Location}\n";
+            
+            foreach(Party party in Parties)
+            {
+                string tempCandidates = "";
+                if (party.Seats > 0)
+                {
+                    for (int i = 0; i < party.Seats-1; i++)
+                    {
+                        tempCandidates += $"{party.Candidates[i]},";
+                    }
+                    tempCandidates += $"{party.Candidates[party.Seats-1]};\n";
+                    finalResult += $"{party.Name},{tempCandidates}";
+                }
+            }
+            return finalResult.Trim();
+        }
 
     }
 }

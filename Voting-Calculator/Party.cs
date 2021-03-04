@@ -8,14 +8,11 @@ namespace Voting_Calculator
 {
     class Party
     {
-        private string _name;
-        private int _votes;
-        private string[] _candidates;
         private int _seats;
 
-        public string Name => _name;
-        public int Votes => _votes;
-        public string[] Candidates => _candidates;
+        public string Name { get; }
+        public int Votes { get; }
+        public string[] Candidates { get; }
         public int Seats
         {
             get => _seats;
@@ -24,10 +21,14 @@ namespace Voting_Calculator
 
         public Party(string Name, int Votes, string[] Candidates)
         {
-            _name = Name;
-            _votes = Votes;
-            _candidates = Candidates;
+            this.Name = Name;
+            this.Votes = Votes;
+            this.Candidates = Candidates;
             _seats = 0;
+        }
+        public Party()
+        {
+            this.Votes = 0;
         }
 
     }

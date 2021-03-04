@@ -22,6 +22,13 @@ namespace Voting_Calculator
 
             ElectionData VotingData = new ElectionData(votesLocation,votesTotal,votesParties);
 
+            for (int i=0; i< TotalSeats;i++)
+            {
+                VotingData.BiggestVotes();
+                //Console.WriteLine($"index {VotingData.BiggestVotes()} round {i}");
+            }
+            Console.WriteLine(VotingData.Result());
+
             Console.ReadKey();
         }
     }
